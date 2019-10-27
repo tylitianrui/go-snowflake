@@ -41,10 +41,10 @@ type SnowFlake struct {
 
 func NewSnowFlake(datacenterId, machineId int64) (*SnowFlake, error) {
 	if datacenterId > MAX_DATACENTER || datacenterId < 0 {
-		return nil, errors.New("0")
+		return nil, errors.New("Illegal Argument Exception :datacenterId  out  of  range")
 	}
 	if machineId > MAX_MACHINE || machineId < 0 {
-		return nil, errors.New("1")
+		return nil, errors.New("Illegal Argument Exception :machineId  out  of  range")
 	}
 
 	return &SnowFlake{
@@ -62,7 +62,7 @@ func (self *SnowFlake) NextID() (uint64, error) {
 	)
 	currTimeStamp = self.currentTimeStampMilliSecond()
 	if currTimeStamp < self.lastStmp {
-		return 0, errors.New("11")
+		return 0, errors.New("current timestamp less than last timestamp")
 	}
 
 	// 同一毫秒内生成
